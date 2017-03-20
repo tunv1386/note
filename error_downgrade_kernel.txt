@@ -1,0 +1,7 @@
+Khong boot dc linux:
+1. add rdshell in command kernel
+2. In dracut: type command
+    - lvm vgscan
+	- lvm vgchange -ay
+	- blkid
+	- exit (restart)

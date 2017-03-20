@@ -1,0 +1,6 @@
+sqoop export --connect jdbc:mysql://10.30.72.221/raw_log_jxm_2016-09-12 --username sqoop_user --password 12345 --table playerlogin_2016-09-12 --export-dir /ge/warehouse/jxm/PlayerLogin/2016-09-12 --input-fields-terminated-by \t
+
+
+GRANT SELECT,INSERT ON `\`raw_log_jxm\_%`\`.* TO 'sqoop_user'@'%';
+
+REVOKE ALL ON `raw_log_jxm`.* FROM 'sqoop_user'@'%';

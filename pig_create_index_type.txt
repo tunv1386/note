@@ -1,0 +1,4 @@
+--SET mapreduce.job.queuename 
+REGISTER 'hdfs:/user/pooka/elasticsearch-hadoop-2.3.4.jar'
+sourcedata = load '/ge/warehouse/ica/login/2016-09-19/*' using PigStorage('\t') as (LogTime:datetime,UserID:chararray,ServerID:chararray,RoleID:chararray,RoleName:chararray,GameClientVersion:chararray,OSPlatform:chararray,OSVersion:chararray,DeviceName:chararray,ConnectionType:chararray,Level:chararray,Exp:chararray,CoinBalance:chararray,CashCoinBalance:chararray,BonusCoinBalance:chararray,SessionID:chararray,Result:chararray,DeviceID:chararray,DownloadSource:chararray);
+STORE sourcedata INTO 'icamfbs2/login-2016.09.19' USING org.elasticsearch.hadoop.pig.EsStorage('es.nodes = elastic.stats.vng.vn','es.port = 9200','es.http.timeout = 5m', 'es.index.auto.create = true');

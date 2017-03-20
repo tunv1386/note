@@ -1,0 +1,1 @@
+1. top -p `pidof "php" | sed s#\ #,#g` (gioi han 20 process)

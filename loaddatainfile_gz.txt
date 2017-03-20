@@ -1,0 +1,30 @@
+1. mount -t nfs -o vers=3,proto=tcp,nolock,noacl,sync c409.hadoop.gda.lo:/ /data/hadooptest
+c409.hadoop.gda.lo
+2. Load data infile gz in fifo
+	- mkfifo /data/test/testfifo.fifo
+	- chmod 666 /data/test/testfifo.fifo
+	- gunzip -c /data/hadooptest/ge/gamelogs/nikki/20170222/loggame/65535_20170222.log.gz > /data/test/testfifo.fifo
+	- SET SQL_LOG_BIN = 0;
+	  LOAD DATA INFILE '/data/test/testfifo.fifo' INTO TABLE `databasetest`.`nikki` FIELDS TERMINATED BY '|';
+3. Use pt-fifo-split
+FLAT_FILE="/tmp/big_file.txt"
+FIFO_PATH="${FLAT_FILE}.fifo"
+LOAD_FILE="${FLAT_FILE}.load"
+CHUNK_SIZE=100000
+
+# Split the file
+pt-fifo-split --force --lines ${CHUNK_SIZE} ${FLAT_FILE} --fifo ${FIFO_PATH} &
+# Sleep 10 seconds to assure ${FIFO_PATH} exists before entering loop
+sleep 10
+while [ -e ${FIFO_PATH} ]
+do
+  # Write chunk to disk
+  cat ${FIFO_PATH} > ${LOAD_FILE}
+  # Load chunk into table
+  mysql --database=test \
+   --show-warnings \
+   -vve "load data infile '${LOAD_FILE}' into table my_table;"
+done
+#mysql -hlocalhost -uroot -pA3ckdyr8LQY@vdt --database=databasetest --show-warnings -vve "SET SQL_LOG_BIN = 0;LOAD DATA LOCAL INFILE '/data/test/testfifo.fifo' INTO TABLE `databasetest`.`nikki` FIELDS TERMINATED BY '|';"
+
+

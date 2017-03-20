@@ -1,0 +1,100 @@
+<!--
+  -
+  - Run: oozie job -run -config job.properties -D inputPath=${inputPath} -D outputPath=${outputPath} -D logStart=${logStart} -D logEnd=${logEnd} -D toRecipients=${toRecipients} -D ccRecipients=${ccRecipients} -D alertContacts=${alertContacts} -D nominalTime=${nominalTime}
+  -
+  -->
+
+<workflow-app name="ETL :: 9K :: Create Role Log - Workflow"
+            xmlns="uri:oozie:workflow:0.5"
+            xmlns:sla="uri:oozie:sla:0.2">
+
+    <global>
+        <job-tracker>${jobTracker}</job-tracker>
+        <name-node>${nameNode}</name-node>
+        <configuration>
+            <property>
+                <name>mapreduce.job.queuename</name>
+                <value>production</value>
+            </property>
+            <property>
+                <name>oozie.launcher.mapred.job.queue.name</name>
+                <value>interactive</value>
+            </property>
+            <property>
+                <name>tez.lib.uris</name>
+                <value>${tezLibUris}</value>
+            </property>
+            <property>
+                <name>oozie.launcher.mapred.map.memory.mb</name>
+                <value>756</value>
+            </property>
+            <property>
+                <name>oozie.launcher.mapreduce.map.java.opts</name>
+                <value>-Xmx756m</value>
+            </property>
+            <property>
+                <name>oozie.launcher.yarn.scheduler.maximum-allocation-mb</name>
+		<value>1024</value>
+            </property>
+        </configuration>
+    </global>
+
+    <start to="parse-log"/>
+
+    <action name="parse-log">
+        <pig>
+            <prepare>
+                <delete path="${outputPath}"/>
+            </prepare>
+            <script>${applicationPath}/script.pig</script>
+            <argument>-x</argument>
+            <argument>tez</argument>
+            <argument>-optimizer_off</argument>
+            <argument>ColumnMapKeyPrune</argument>
+            <argument>-param</argument>
+            <argument>inputPath=${inputPath}</argument>
+            <argument>-param</argument>
+            <argument>outputPath=${outputPath}</argument>
+        </pig>
+        <ok to="send-email-ok"/>
+        <error to="send-email-error"/>
+    </action>
+
+    <action name="send-email-ok">
+        <email xmlns="uri:oozie:email-action:0.1">
+            <to>${toRecipients}</to>
+            <subject>Workflow ${wf:id()} with ${wf:name()} success</subject>
+            <body>The workflow ${wf:name()} with id ${wf:id()} successfully completed.</body>
+        </email>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+
+    <action name="send-email-error">
+        <email xmlns="uri:oozie:email-action:0.1">
+            <to>${toRecipients}</to>
+            <subject>Workflow ${wf:id()} with ${wf:name()} failed</subject>
+            <body>The workflow ${wf:name()} with id ${wf:id()} failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</body>
+        </email>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+
+    <kill name="kill">
+        <message>Workflow [${wf:id()}] failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+
+    <end name="end"/>
+
+    <!--
+    <sla:info>
+        <sla:nominal-time>${nominalTime}</sla:nominal-time>
+        <sla:should-start>${1 * MINUTES}</sla:should-start>
+        <sla:should-end>${1 * MINUTES}</sla:should-end>
+        <sla:max-duration>${1 * MINUTES}</sla:max-duration>
+        <sla:alert-events>start_miss,end_miss,duration_miss</sla:alert-events>
+        <sla:alert-contact>${alertContacts}</sla:alert-contact>
+    </sla:info>
+    -->
+
+</workflow-app>

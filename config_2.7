@@ -1,0 +1,123 @@
+- prequirement:
+	+ Install sdk java
+	+ Create user hadoop(# useradd hadoop # passwd hadoop)
+	+ Add FQDN Mapping (# vim /etc/hosts)(192.168.1.15 hadoop-master/192.168.1.16 hadoop-slave-1/192.168.1.17 hadoop-slave-2)
+	+ Configuring Key Based Login (
+		# su - hadoop
+		$ ssh-keygen -t rsa
+		$ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@hadoop-master
+		$ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@hadoop-slave-1
+		$ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@hadoop-slave-2
+		$ chmod 0600 ~/.ssh/authorized_keys
+		$ exit)
+	+ Download and Extract Hadoop Source (
+		# mkdir /opt/hadoop
+		# cd /opt/hadoop/
+		# wget url_source
+		# tar -xzf hadoop-1.2.0.tar.gz
+		# mv hadoop-1.2.0 hadoop
+		# chown -R hadoop /opt/hadoop
+		# cd /opt/hadoop/hadoop/)
+	+ Copy Hadoop Source to Slave Servers(
+		# su - hadoop
+		$ cd /opt/hadoop
+		$ scp -r hadoop hadoop-slave-1:/opt/hadoop
+		$ scp -r hadoop hadoop-slave-2:/opt/hadoop)
+- config
+1.
+# Set HADOOP_HOME
+export HADOOP_HOME=/opt/hadoop/hadoop
+# Set JAVA_HOME
+export JAVA_HOME=/opt/jdk1.7.0_79
+# Add Hadoop bin and sbin directory to PATH
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+
+2. 
+ /opt/hadoop/hadoop/etc/hadoop/core-site.xml (master and slave)
+<property>
+	<name>hadoop.tmp.dir</name>
+	<value>/opt/hadoop/tmp</value>
+	<description>Temporary Directory</description>
+</property>
+<property>
+	<name>fs.defaultFS</name>
+	<value>hdfs://hadoop-master:54310</value>
+	<description>Use HDFS as file storage engine</description>
+</property>
+3.
+  /opt/hadoop/hadoop/etc/hadoop/mapred-site.xml (Only master)
+<property>
+	<name>mapreduce.jobtracker.address</name>
+	<value>hadoop-master:54311</value>
+	<description>The host and port that the MapReduce job tracker runs
+	at. If “local”, then jobs are run in-process as a single map
+	and reduce task.
+	</description>
+</property>
+<property>
+	<name>mapreduce.framework.name</name>
+	<value>yarn</value>
+	<description>The framework for running mapreduce jobs</description>
+</property>
+4.
+ /opt/hadoop/hadoop/etc/hadoop/hdfs-site.xml (master and slave)
+<property>
+	<name>dfs.replication</name>
+	<value>2</value>
+	<description>Default block replication.
+	The actual number of replications can be specified when the file is created.
+	The default is used if replication is not specified in create time.
+	</description>
+</property>
+<property>
+	<name>dfs.namenode.name.dir</name>
+	<value>/opt/hadoop/hadoop/hdfs/namenode</value>
+	<description>Determines where on the local filesystem the DFS name node should store the name table(fsimage). 
+	If this is a comma-delimited list of directories then the name table is replicated in all of the directories, for redundancy.
+	</description>
+</property>
+<property>
+	<name>dfs.datanode.data.dir</name>
+	<value>/opt/hadoop/hadoop/hdfs/datanode</value>
+	<description>Determines where on the local filesystem an DFS data node should store its blocks. 
+	If this is a comma-delimited list of directories, then data will be stored in all named directories, typically on different devices. 
+	Directories that do not exist are ignored.
+	</description>
+</property>
+5.
+  /opt/hadoop/hadoop/etc/hadoop/yarn-site.xml (master and slave)
+<property>
+	<name>yarn.nodemanager.aux-services</name>
+	<value>mapreduce_shuffle</value>
+</property>
+<property>
+	<name>yarn.resourcemanager.scheduler.address</name>
+	<value>hadoop-master:8030</value>
+</property> 
+<property>
+	<name>yarn.resourcemanager.address</name>
+	<value>hadoop-master:8032</value>
+</property>
+<property>
+	<name>yarn.resourcemanager.webapp.address</name>
+	<value>hadoop-master:8088</value>
+</property>
+<property>
+	<name>yarn.resourcemanager.resource-tracker.address</name>
+	<value>hadoop-master:8031</value>
+</property>
+<property>
+	<name>yarn.resourcemanager.admin.address</name>
+	<value>hadoop-master:8033</value>
+</property>
+
+6.
+  /opt/hadoop/hadoop/etc/hadoop/slave(only master)
+	hadoop-master
+	hadoop-slave-1
+	hadoop-slave-2
+	
+7. Check install oki hadoop:
+	http://master:8088/cluster/nodes (yarn oki)
+	$ hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.2.0.jar pi 30 100 (Mapreduce oki)
+	

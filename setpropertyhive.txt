@@ -1,0 +1,3 @@
+hive.metastore.uris thrift://c405.hadoop.gda.lo:9083
+
+oozie.action.sharelib.for.pig hive,pig,hcatalog

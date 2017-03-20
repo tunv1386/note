@@ -1,0 +1,40 @@
+create external table if not exists ica_login(
+	dailydate date ,
+    roleid string ,
+    serverid string ,
+	platform string ,
+	firstlogintime timestamp ,
+	lastlogintime timestamp ,
+	createtime timestamp 
+)
+partitioned by (dt date)
+stored as orc
+;
+
+CREATE EXTERNAL TABLE IF NOT EXISTS `ica_login_textfile` (
+  `LogTime` timestamp COMMENT '',
+  `UserID` string COMMENT '',
+  `ServerID` string COMMENT '',
+  `RoleID` string COMMENT '',
+  `RoleName` string COMMENT '',
+  `GameClientVersion` string COMMENT '',
+  `OSPlatform` string COMMENT '',
+  `OSVersion` string COMMENT '',
+  `DeviceName` string COMMENT '',
+  `ConnectionType` string COMMENT '',
+  `Level` int COMMENT '',
+  `Exp` bigint COMMENT '',
+  `CoinBalance` bigint COMMENT '',
+  `CashCoinBalance` bigint COMMENT '',
+  `BonusCoinBalance` bigint COMMENT '',
+  `SessionID` string COMMENT '',
+  `Result` int COMMENT '',
+  `DeviceID` string COMMENT '',
+  `DownloadSource` string COMMENT ''
+)partitioned by (dt date)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+stored as textfile
+;
+
+LogTime:datetime,UserID:chararray,ServerID:chararray,RoleID:chararray,RoleName:chararray,GameClientVersion:chararray,OSPlatform:chararray,OSVersion:chararray,DeviceName:chararray,ConnectionType:chararray,Level:int,Exp:long,CoinBalance:long,CashCoinBalance:long,BonusCoinBalance:long,SessionID:chararray,Result:int,DeviceID:chararray,DownloadSource:chararray

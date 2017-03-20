@@ -1,0 +1,1 @@
+${coord:formatTime(coord:nominalTime(), 'yyyyMMdd')}

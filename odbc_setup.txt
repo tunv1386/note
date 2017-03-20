@@ -1,0 +1,22 @@
+UnixODBC:
+1. yum install unixODBC unixODBC-devel
+Driver MySQL: 
+1. yum install mysql-connector-odbc
+Driver Hive:
+1. rpm -ivh hive-odbc-native-2.0.5.1006-1.el6.x86_64.rpm
+2. yum install cyrus-sasl-gssapi cyrus-sasl-plain
+Configure:
+[Default]
+Driver       = /usr/lib64/libmyodbc5.so
+Description  = Connector/ODBC 5.51 Driver DSN
+SERVER       = 192.168.217.1
+PORT         =
+USER         = root
+Password     = 
+Database     = test
+OPTION       = 3
+SOCKET       =
+Test:
+isql -v Default
+
+

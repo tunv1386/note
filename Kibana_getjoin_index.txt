@@ -1,0 +1,9 @@
+It looks like you try using your knowledge of relational databases with no-SQL databases such as Elasticsearch (ES). There are several options you have.
+
+Option #1. Save all the information you have into the same document. If you get more data after an initial document was indexed, just update it with extra keys. If different documents have different schemas (aka set of keys), it's not a problem for ES. Also, when querying ES, you can specify which fields do you want to retrieve if you are concerned about size of requests/responses with ES.
+
+Option #2. You can use different types for your different id/email documents, and id/keys documents, but keep storing them in the same index. Then, you can create a dashboard and put several visualizations: a) Data Table with ability to choose an id; b) Email visualization which shows all emails (as soon as you select an id in visualization a) by clicking on it, you Kibana will immediately show you an email of the document for the given id c) Keys visualization which shows all keys (again, as soon as you select an id or an email, this visualization will update to show only keys related to the selection)
+
+Option #3. Save as above, but you can have different indices instead of a different types. As long as those indices have a common prefix (e.g. docs-email and docs-keys), you can use their prefix in kibana to retrieve data from different indices
+
+Option #4. Application-level join as you described in your question. ES provides REST API over all the data it stores. You can always retrieve whatever you need from it and build client-side join (it makes one wonder why did you choose ES as a backend for storing data instead of a relational DB)

@@ -1,0 +1,7 @@
+Config hostname
++ Add: (/etc/hosts)
+	ip namehost
++ Add: (/etc/sysconfig/network) 
+	HOSTNAME: namehost
++ /etc/init.d/network restart
++ hostname namehost

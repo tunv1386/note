@@ -1,0 +1,13 @@
+oozie jobs -oozie http://c407.hadoop.gda.lo:11000/oozie -jobtype coordinator -filter name=item_hcatalog_daily\;status=RUNNING
+
+oozie jobs -oozie http://c407.hadoop.gda.lo:11000/oozie -len 1000 -fliter user=pooka;status=RUNNING (liet ke workflow)
+
+oozie job -oozie http://c407.hadoop.gda.lo:11000/oozie -info 0066621-161125190617931-oozie-oozi-W -localtime (thong tin workflow)
+
+yarn logs -applicationId application_1480098217683_488703 --appOwner pooka > /home/pooka/test.log
+
+yarn logs -applicationId application_1480098217683_674406 --appOwner pooka > /home/pooka/role_ddd2.log
+
+yarn logs -applicationId application_1480098217683_674418 --appOwner pooka > /home/pooka/role_ddd2_sub.log
+
+oozie job -oozie http://c407.hadoop.gda.lo:11000/oozie -kill 0316930-161018005711488-oozie-oozi-C

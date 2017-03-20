@@ -1,0 +1,37 @@
+PUT _template/logging
+{
+  "template":   "logs-*", 
+  "settings": { "number_of_shards": 1 }, 
+  "mappings": {
+    "_default_": {
+      "_all": { 
+        "enabled": false
+      },
+      "properties": {
+        "LogTime": {
+          "type":   "date",
+          "format": "yyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        }
+      }
+    }
+  }
+}
+curl -XPUT 'http://hadoop-master:9200/_template/icamfbs2_login' -d '{
+  "template":   "icamfbs2_login-*", 
+  "settings": { "number_of_shards": 1 }, 
+  "mappings": {
+    "_default_": {
+      "_all": { 
+        "enabled": false
+      },
+      "properties": {
+        "LogTime": {
+          "type":   "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        }
+      }
+    }
+  }
+}'
+
+curl -XPUT 'http://hadoop-master:9200/logs-2016.09.21/event/1' -d '{ "LogTime": "2016-09-21 00:10:00" }'

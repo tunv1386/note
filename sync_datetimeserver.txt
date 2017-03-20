@@ -1,0 +1,1 @@
+date --set="$(ssh root@hadoop-slave-1 'date')"

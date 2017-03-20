@@ -1,0 +1,1 @@
+sqoop export --connect jdbc:mysql://10.30.72.221/raw_log_jxm_20160912 --username sqoop_user --password 12345 --table playerlogin_20160912 --export-dir hdfs://c408.hadoop.gda.lo:8020/ge/warehouse/jxm/PlayerLogin/2016-09-12 --input-fields-terminated-by \t

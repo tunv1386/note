@@ -1,0 +1,102 @@
+drop table daily_role_login;
+create external table daily_role_login(
+	dailydate date ,
+    roleid string ,
+    serverid string ,
+	platform string ,
+	firstlogintime timestamp ,
+	lastlogintime timestamp ,
+	createtime timestamp 
+)
+partitioned by (dt date)
+stored as orc
+;
+drop table daily_role_logout;
+create external table  daily_role_logout(
+	dailydate date  ,
+	roleid string ,
+	serverid string  ,
+	logoutcount int ,
+	totalonlinetime bigint ,
+	createtime timestamp  
+)
+partitioned by (dt date)
+stored as orc
+;
+drop table daily_role_levelup;
+create external table  daily_role_levelup(
+	dailydate date  ,
+	roleid string ,
+	serverid string  ,
+	minlevel bigint ,
+	maxlevel bigint ,
+	createtime timestamp  
+)
+partitioned by (dt date)
+stored as orc
+;
+
+drop table daily_role_paying;
+create external table  daily_role_paying(
+	dailydate date  ,
+	roleid string ,
+	serverid string ,
+	platform string,
+	level int ,
+	numtrans int ,
+	grossrevenue_user bigint ,
+	grossrevenue bigint ,
+	topupcoin bigint ,
+	cashcoin bigint ,
+	bonuscoin bigint ,
+	firstpayingtime TIMESTAMP  ,
+	lastpayingtime TIMESTAMP  ,
+	createtime TIMESTAMP  
+)
+partitioned by (dt date)
+stored as orc
+;
+drop table daily_account_spent;
+create external table  daily_account_spent(
+	dailydate date  ,
+	roleid string ,
+	serverid string ,
+	platform string,
+	level int ,
+	actionname string ,
+	itemid string ,
+	spentcashcoin bigint ,
+	spentbonuscoin bigint ,
+	shoptype string ,
+	numtrans int ,
+	itemprice int ,
+	quantity int ,
+	createtime TIMESTAMP  
+)
+partitioned by (dt date)
+stored as orc
+;
+
+drop table role_snapshot;
+create external table  role_snapshot(
+	roleid string ,
+	serverid string ,
+	rolename string ,
+	level int ,
+	registertime timestamp ,
+	registerip string ,
+	registersource string ,
+	platform string ,
+	social string ,
+	lastlogintime timestamp ,
+	lastloginip string ,
+	totalrevenue bigint ,
+	firstpayingtime timestamp ,
+	firstpayinglevel int ,
+	lastpayingtime timestamp ,
+	createtime timestamp
+)
+partitioned by (dt date)
+stored as orc;
+
+

@@ -1,0 +1,40 @@
++ Set IP Tinh trong linux:(nm-tool check information IP)
+/etc/sysconfig/network-scripts/ifcfg-eth0
+ADD:
+DEVICE="eth0"
+BOOTPROTO=none
+IPADDR=192.168.217.133
+IPV6INIT="yes"
+NM_CONTROLLED="yes"
+ONBOOT="yes"
+TYPE="Ethernet"
+UUID="5fd93986-01ac-4d0f-8dda-cd6169d017aa"
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+NAME="System eth0"
+HWADDR=00:0C:29:A8:03:50
+PREFIX=24
+GATEWAY=192.168.217.2
+DNS1=192.168.217.2
+IPV6_PEERDNS=yes
+IPV6_PEERROUTES=yes
++ Set IP Dong trong linux:
+DEVICE="eth0"
+BOOTPROTO=dhcp
+IPV6INIT="yes"
+NM_CONTROLLED="yes"
+ONBOOT="yes"
+TYPE="Ethernet"
+UUID="5fd93986-01ac-4d0f-8dda-cd6169d017aa"
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+NAME="System eth0"
+HWADDR=00:0C:29:A8:03:50
+IPV6_PEERDNS=yes
+IPV6_PEERROUTES=yes

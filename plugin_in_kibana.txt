@@ -1,0 +1,3 @@
+bin/kibana plugin -i tr-k4p-clock -u file:///opt/hadoop/kibana/kibana/customize_plugin/tr-k4p-clock-master.zip
+
+bin/kibana plugin -i tr-k4p-tagcloud -u file:///opt/hadoop/kibana/kibana/customize_plugin/tr-k4p-tagcloud-0.1.0.zip
