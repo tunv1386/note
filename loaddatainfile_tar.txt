@@ -1,0 +1,17 @@
+gunzip -c /data/hadooptest/ge/logs/s3/jxm/2016/10/jxm.2016-10-13.03.0.tar.gz > /data/test/testtar.fifo
+
+
+gzip -dc /data/hadooptest/ge/logs/s3/jxm/2016/10/jxm.2016-10-13.03.0.tar.gz | tar -tvf -
+
+ gzip -dc /data/hadooptest/ge/logs/s3/jxm/2016/10/jxm.2016-10-13.03.0.tar.gz | tar -tvf - 
+ 
+tar -axf /data/hadooptest/ge/logs/s3/jxm/2016/10/jxm.2016-10-13.03.0.tar.gz -O
+
+
+tar -xzf /data/hadooptest/ge/logs/s3/jxm/2016/10/jxm.2016-10-17.03.0.tar.gz --wildcards --no-anchored '*sql*'
+
+
+tar cvf - /data/hadooptest/ge/logs/s3/jxm/2016/10/jxm.2016-10-17.03.0.tar.gz | gzip > /data/test/testtar.fifo
+
+
+tar zxf /data/hadooptest/ge/logs/s3/jxm/2016/10/jxm.2016-10-17.03.0.tar.gz --wildcards --no-anchored '*sql*' --to-command='gunzip -c > /data/test/testtar.fifo'
