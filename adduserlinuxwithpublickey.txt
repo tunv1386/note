@@ -1,0 +1,62 @@
+useradd thanhdx
+cd /home/thanhdx && su thanhdx
+mkdir .ssh
+chmod 700 .ssh && cd .ssh && touch authorized_keys
+chmod 600 authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIB8eXpBJLkILjq4ZqvK5Zc43kvKxqnWTHmoUqGOiPEUiLJqQqDBnF1NIY/rJ6k1IcYqcro37ZdBctyQANO/7Z6NuiWE6DwWC/2Uot1mqDz48ecdDni4m/VWjdtSjh/PkEvNoVbp3Nr5UirdLlJaWB6Ky5O0EXTv2m4pnAJEN7FVSw==  thanhdx" >> authorized_keys
+exit
+
+cd /root
+
+
+echo "thanhdx   ALL=(ALL)       NOPASSWD :ALL" >> /etc/sudoers
+
+
+useradd thiennc2
+cd /home/thiennc2 && su thiennc2
+mkdir .ssh
+chmod 700 .ssh && cd .ssh && touch authorized_keys
+chmod 600 authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAgaKRWfkWR3WUAMZf28tYCPjlwH4GLtaE3/qSxrWLZgvQuj7CanrPHU8JxZ9GSzEuSrZD0Ee59x6dwqsSQ7+TpolC8aeJYJnECjbWj3E0+y/BK46RwRc8W2hlTkPw0rtlAkSDCiYZJEs44ZuSAQzFzRwbb9pFr1sawHSV9wHmA1KZ7E6SjCH1Ct2DvqXNuSFKJOnIfaIUeEi30K8pBfoVlmK2qWj/Lxq+aWFhgqYVH309bM+9g6XW2cR+TWeoo2ITLq5H7UJ6lAzur9X5JzGDIJtzQMiYNL/uwMUS/5QAOivIt4acg4PQRNMcmYWbfHi6GtZX+FhxN5xti9P5T6mDuw==  thiennc2" >> authorized_keys
+exit
+
+cd /root
+
+
+echo "thiennc2   ALL=(ALL)       NOPASSWD :ALL" >> /etc/sudoers
+
+
+useradd tungpv
+cd /home/tungpv && su tungpv
+mkdir .ssh
+chmod 700 .ssh && cd .ssh && touch authorized_keys
+chmod 600 authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBmLLLRcByLwMtXhAagdRurMuG5/sMUEtEyU78t6NZzZCcq+GW2ki+W1LJk4ZctQtvJsXGHZJUwqbxwU8aDEWOZrBPoL2vwrAdxJz/jHYIr21XgLe1N6HSRT/SQqVsuAPFd3DLjsL7CTP5CzYx9YJOZ3geL5GCdj6AqPOOCgBQJlGVz6qyTuIG+qFCog6rK5wBi/ObUIKP/Dx/LXsA8KJL9SOwpfV6tzVLLsiOM1xBmsAVfoCQ0/y21CSSCUma9jWu40u01aN1H4sVgtKCW2L4/l0bC5zfY8SAirYs4N7mK6PyJ7MTgb9F6TOAVhxMVZI4Etac8P763Qh3H0uIM4GT tungpv@Tungpv--PC" >> authorized_keys
+exit
+echo "tungpv   ALL=(ALL)       NOPASSWD :ALL" >> /etc/sudoers
+
+useradd anhntv
+cd /home/anhntv && su anhntv
+mkdir .ssh
+chmod 700 .ssh && cd .ssh && touch authorized_keys
+chmod 600 authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEArqrTtlwq0nUMH5BvXPC81r+dSG5/FRn1J+ILU+4if9VxTWd1MNSgXr3zc+kaewWpaH9OJInMEM6Z5wdf2Qrb3ire16KphIltSmHWVCoGzdy9EJFyvHyilqciAM9ZLCDXbtdTVWOluMORbXIi5OinUPFZ4r8JsH8TYlZW37ZX+f6IY/LYJMskk+8ZmMDlrYKRfSIP0I3DI/o4i6Xx3oeBYbbRisX65n+DdM2ln5I95PovmByv1LR7DRpZNNt+9mlhEOZv6Uyqs5GOQrLLYKSU8U8dbmwPos59HJneFwtS1MMqPYCb6erEGfooUlvaBm9EDPj7ZCVzmLJNqb6SSW3a/Q==" >> authorized_keys
+exit
+echo "anhntv   ALL=(ALL)       NOPASSWD :ALL" >> /etc/sudoers
+
+useradd vunv
+cd /home/vunv && su vunv
+mkdir .ssh
+chmod 700 .ssh && cd .ssh && touch authorized_keys
+chmod 600 authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDlXooT13554ZSwxE/gkl9qLMIOEKa96DGhC2zbV5/xIxrClcuboOOIo9f8wmqoqQO1rb3YswAmq6xGicJD2Qj7GMkhmMjKdio0OmDxdCPBX+JMwrsei+WC+JGXUfCO9FQqy3o6adsMLTDGnaKwv3f/5K8yNwtEh4H99wZFtqnGMJwTy/xTyafrJuIoc/Oi3dgVtbpYV2fwYN3qsEE9rH+rpC9xKAeveGAzmRwZgfqkqnz2zJ72cW1KPhgf9NHPSgsU9GOEQ5/I2RHhzEjoAqnN1oSARG3gc6yaN19fwxjNup/esCnG3Pj6w758lgGSiIHoClGbxW44ZggQxfAup527 vunv@vng.com.vn" >> authorized_keys
+exit
+echo "vunv   ALL=(ALL)       NOPASSWD :ALL" >> /etc/sudoers
+
+CREATE USER 'tunv'@'10.30.72.52' IDENTIFIED BY 'A3ckdyr8LQY@vdt';
+GRANT ALL PRIVILEGES ON *.* TO 'tunv'@'10.30.72.52' WITH GRANT OPTION;
+
+
+
+
+
